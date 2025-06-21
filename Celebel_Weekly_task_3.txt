@@ -1,0 +1,53 @@
+// Select All : SQL Quey to fetch all details
+
+: select * from CITY;
+
+// Select By ID : SQL query to fetch details by ID
+
+: select * from CITY where ID = 1661;
+
+// Employee Names : SQL Query to list all employess names
+
+:select name from Employee order by name;
+
+//Japanese Cities : Query to filter Japanese City
+
+:select * from CITY where COUNTRYCODE ='JPN';
+
+//Weather Observation Station 1 : SQL Query to list of city and state
+
+:SELECT CITY, STATE FROM STATION ;
+
+//Weather Observation Station 3 : Query a list of CITY names from STATION for cities that have an even ID number
+
+:SELECT DISTINCT CITY FROM STATION WHERE MOD(ID, 2) = 0;
+
+//Weather Observation Station 4 : Find the difference between the total number of CITY entries in the table and the number of distinct CITY entries in the table.
+
+:select count(CITY) - COUNT(DISTINCT CITY) FROM STATION;
+
+//Weather Observation Station 5 : Query the two cities in STATION with the shortest and longest CITY names, as well as their respective lengths
+
+:
+(SELECT CITY, LENGTH(CITY) AS LEN
+ FROM STATION
+ ORDER BY LENGTH(CITY) ASC, CITY ASC
+ LIMIT 1)
+
+UNION
+
+(SELECT CITY, LENGTH(CITY) AS LEN
+ FROM STATION
+ ORDER BY LENGTH(CITY) DESC, CITY ASC
+ LIMIT 1);
+
+//Average Population : Query the average population for all cities in CITY, rounded down to the nearest integer.
+
+:select AVG(POPULATION) from CITY;
+
+//Average Population of Each Continent
+:SELECT COUNTRY.Continent, FLOOR(AVG(CITY.Population)) AS AvgPopulation
+FROM CITY
+JOIN COUNTRY ON CITY.CountryCode = COUNTRY.Code
+GROUP BY COUNTRY.Continent;
+
